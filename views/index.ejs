@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NYM Roster</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    </head>
+    <body>
+        <h1>New York Mets Roster</h1>
+        <div class="row">
+            <div class="col">
+                <form name="create" method="POST" action="/add">
+                    <table>
+                        <tr>
+                            <td>First Name</td>
+                            <td><input type="text" name="firstName" /></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td><input type="text" name="lastName" /></td>
+                        </tr>
+                        <tr>
+                            <td>Position</td>
+                            <td><input type="text" name="position" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="submit" class="btn btn-success">Add New Player</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="col">
+                <table>
+                    <tr>
+                        <td>Position</td>
+                        <td>Last Name</td>
+                        <td>First Name</td>
+                    </tr>
+                    <% data.players.forEach( (player) => { %>
+                        <tr>
+                            <td><%= player.position %></td>
+                            <td><%= player.lastName %></td>
+                            <td><%= player.firstName %></td>
+                        </tr>
+                    <% }) %>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
