@@ -42,11 +42,14 @@
                         <td>First Name</td>
                     </tr>
                     <% data.players.forEach( (player) => { %>
-                        <tr>
-                            <td><%= player.position %></td>
-                            <td><%= player.lastName %></td>
-                            <td><%= player.firstName %></td>
-                        </tr>
+                        <form name="update" method="POST" action="/remove">
+                            <tr>
+                                <td><input readonly type="text"  name="position" value=<%= player.position %> /></td>
+                                <td><input readonly type="text" name="lastName" value=<%= player.lastName %> /></td>
+                                <td><input readonly type="text" name="firstName" value=<%= player.firstName %> /></td>
+                                <td><button type="submit" class="btn btn-danger">Remove</button></td>
+                            </tr>
+                        </form>
                     <% }) %>
                 </table>
             </div>

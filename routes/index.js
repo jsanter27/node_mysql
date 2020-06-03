@@ -6,7 +6,8 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'mets'
+    database: 'mets',
+    multipleStatements: true
 });
 
 connection.connect((err) => {
@@ -35,16 +36,31 @@ router.get('/', (req, res) => {
 
 // ADD PLAYER TO ROSTER
 router.post('/add', (req, res) => {
-    let player = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        position: req.body.position
-    }
+    let player = [
+        [null, req.body.lastName, req.body.firstName, req.body.position]
+    ];
+
+    const addPlayer = "INSERT INTO players ( id, lastName, firstName, position ) VALUES ?";
+    connection.query(addPlayer, [player], (err, results) => {
+        if (err)
+            throw err;
+
+        res.redirect('/');
+    });
+});
+
+// REMOVE PLAYER FROM ROSTER
+router.post('/remove', (req, res) => {
+    let player = [req.body.lastName, req.body.firstName, req.body.position];
 
     console.log(player);
-    //input = [];
-    //const addPlayer = mysql.format("INSERT INTO players ( id, lastName, firstName, position ) VALUES ?", input);
-    res.render('index');
-});
+    const removePlayer = "DELETE FROM players WHERE lastName=? AND firstName=? AND position=?";
+    connection.query(removePlayer, player, (err, results) => {
+        if (err)
+            throw err;
+
+        res.redirect('/');
+    });
+})
 
 module.exports = router;
